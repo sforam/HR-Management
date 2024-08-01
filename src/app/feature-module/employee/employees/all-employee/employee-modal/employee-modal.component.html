@@ -1,0 +1,280 @@
+<div id="add_employee" class="modal custom-modal fade"     [ngClass]="{'show': showModal}" tabindex="-1"  aria-labelledby="employeeModalLabel" aria-hidden="true"  data-bs-backdrop="static" 
+role="dialog"  >
+
+
+<div class="modal-dialog modal-dialog-centered modal-lg" >
+    <div class="modal-content" >
+      <div class="modal-header">
+        <!-- <h5 class="modal-title">Add Employee</h5> -->
+        <h5 class="modal-title"  id="employeeModalLabel">{{ isEditMode ? 'Edit Employee' : 'Add Employee' }}</h5>
+              
+        <button type="button" class="btn-close"  data-bs-dismiss="modal"  (click)="toggleModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+
+      <div class="modal-body">
+        <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmitAddEmployee()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="input-block mb-3">
+                <label class="col-form-label" for="FirstName">First Name <span class="text-danger">*</span></label>
+                <input id="FirstName" class="form-control" type="text"
+            
+                  [class.invalid]="addEmployeeForm.get('FirstName')?.invalid && addEmployeeForm.get('FirstName')?.touched"
+                  formControlName="FirstName">
+                  
+                  <div *ngIf="addEmployeeForm.get('FirstName')?.invalid && addEmployeeForm.get('FirstName')?.touched" class="text-danger">
+                    <small *ngIf="addEmployeeForm.get('FirstName')?.errors?.['required']">* First Name is required</small>
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="input-block mb-3">
+                  <label class="col-form-label" for="LastName">Last Name</label>
+                  <input id="LastName" class="form-control" type="text"
+                    formControlName="LastName">
+                </div>
+              </div>
+
+
+            <div class="col-sm-6">
+                  <div class="input-block mb-3">
+                    <label class="col-form-label" for="UserName">Username <span class="text-danger">*</span></label>
+                    <input id="UserName" class="form-control" type="text"
+                    formControlName="UserName"
+                    [class.invalid]="addEmployeeForm.get('UserName')?.invalid && addEmployeeForm.get('UserName')?.touched">
+                    <div *ngIf="addEmployeeForm.get('UserName')?.invalid && addEmployeeForm.get('UserName')?.touched" class="text-danger">
+                      <small *ngIf="addEmployeeForm.get('UserName')?.errors?.['required']">* Username is required</small>
+                    </div>
+                  </div>
+            </div>
+
+
+                  <div class="col-sm-6">
+                    <div class="input-block mb-3">
+                      <label class="col-form-label" for="Email">Email <span class="text-danger">*</span></label>
+                      <input id="Email" class="form-control" type="email"
+                    
+                        [class.invalid]="addEmployeeForm.get('Email')?.invalid && addEmployeeForm.get('Email')?.touched"
+                        formControlName="Email">
+                        <div *ngIf="addEmployeeForm.get('Email')?.invalid && addEmployeeForm.get('Email')?.touched" class="text-danger">
+                          <small *ngIf="addEmployeeForm.get('Email')?.errors?.['required']">* Email is required</small>
+                          <small *ngIf="addEmployeeForm.get('Email')?.errors?.['email']">* Invalid email address</small>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                      <div class="input-block mb-3">
+                        <label class="col-form-label" for="Password">Password</label>
+                        <input id="Password" class="form-control" type="password"
+                          [class.invalid]="addEmployeeForm.get('password')?.invalid && addEmployeeForm.get('password')?.touched"
+                          formControlName="Password">
+                        <div *ngIf="addEmployeeForm.get('password')?.invalid && addEmployeeForm.get('password')?.touched" class="text-danger">
+                          <small *ngIf="addEmployeeForm.get('password')?.errors?.['required']">* Password is required</small>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="col-sm-6">
+                      <div class="input-block mb-3">
+                        <label class="col-form-label" for="ConfirmPassword">Confirm Password</label>
+                        <input id="ConfirmPassword" class="form-control" type="password"
+                          [class.invalid]="addEmployeeForm.get('confirmPassword')?.invalid && addEmployeeForm.get('confirmPassword')?.touched"
+                          formControlName="ConfirmPassword">
+                        <div *ngIf="addEmployeeForm.get('confirmPassword')?.invalid && addEmployeeForm.get('confirmPassword')?.touched" class="text-danger">
+                          <small *ngIf="addEmployeeForm.get('confirmPassword')?.errors?.['required']">* Confirm Password is required</small>
+                          <small *ngIf="addEmployeeForm.hasError('passwordMismatch')">* Passwords must match</small>
+                        </div>
+                      </div>
+                    </div>
+        
+
+                        <div class="col-sm-6">
+                          <div class="input-block mb-3">
+                            <label class="col-form-label" for="EmployeeID">Employee ID <span class="text-danger">*</span></label>
+                            <input id="EmployeeID" type="text" class="form-control"
+                              [class.invalid]="addEmployeeForm.get('EmployeeID')?.invalid && addEmployeeForm.get('EmployeeID')?.touched"
+                              formControlName="EmployeeID">
+                              <div *ngIf="addEmployeeForm.get('EmployeeID')?.invalid && addEmployeeForm.get('EmployeeID')?.touched" class="text-danger">
+                                <small *ngIf="addEmployeeForm.get('EmployeeID')?.errors?.['required']">* Employee ID is required</small>
+                              </div>
+                      
+                            </div>
+                          </div>
+
+
+                          <div class="col-sm-6">
+                            <div class="input-block mb-3 date-input1">
+                              <label class="col-form-label" for="JoiningDate">Joining Date <span class="text-danger">*</span></label>
+                              <div class="cal-icon">
+                                <input id="JoiningDate" class="form-control datetimepicker" type="text" 
+                                       bsDatepicker 
+                                       [class.invalid]="addEmployeeForm.get('JoiningDate')?.invalid && addEmployeeForm.get('JoiningDate')?.touched"
+                                       formControlName="JoiningDate">
+                                <div *ngIf="addEmployeeForm.get('JoiningDate')?.invalid && addEmployeeForm.get('JoiningDate')?.touched" class="text-danger">
+                                  <small *ngIf="addEmployeeForm.get('JoiningDate')?.errors?.['required']">* Joining Date is required</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+
+
+                            <div class="col-sm-6">
+                              <div class="input-block mb-3">
+                                <label class="col-form-label" for="Phone">Phone </label>
+                                <input id="Phone" class="form-control" type="text"
+                                  [class.invalid]="addEmployeeForm.get('Phone')?.invalid && addEmployeeForm.get('Phone')?.touched"
+                                  formControlName="Phone">
+                                  <div *ngIf="addEmployeeForm.get('Phone')?.invalid && addEmployeeForm.get('Phone')?.touched" class="text-danger">
+                                    <small *ngIf="addEmployeeForm.get('Phone')?.errors?.['required']">* Phone is required</small>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            <!-- Company Field -->
+<div class="col-sm-6">
+  <div class="input-block mb-3">
+    <label class="col-form-label" for="Company">Company</label>
+    
+      <mat-select id="Company" class="custom-mat-select"
+        [class.invalid]="addEmployeeForm.get('Company')?.invalid && addEmployeeForm.get('Company')?.touched"
+        formControlName="Company">
+        <mat-option value="Global Technologies">Global Technologies</mat-option>
+        <mat-option value="Delta Infotech">Delta Infotech</mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEmployeeForm.get('Company')?.invalid && addEmployeeForm.get('Company')?.touched">
+        <small class="text-danger">Company Name is required</small>
+      </mat-error>
+   
+  </div>
+</div>
+
+
+<div class="col-md-6">
+  <div class="input-block mb-3">
+    <label class="col-form-label" for="DepartmentId">Department <span class="text-danger">*</span></label>
+   
+      
+      <mat-select 
+        id="DepartmentId" 
+        class="custom-mat-select" 
+        [class.invalid]="addEmployeeForm.get('DepartmentId')?.invalid && addEmployeeForm.get('DepartmentId')?.touched"
+        formControlName="DepartmentId"
+        placeholder="Select Department">
+        <mat-option *ngFor="let department of departments" [value]="department.id">
+          {{ department.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEmployeeForm.get('DepartmentId')?.invalid && addEmployeeForm.get('DepartmentId')?.touched">
+        Department is required
+      </mat-error>
+   
+  </div>
+</div>
+
+<!-- Designation Field -->
+<div class="col-md-6">
+  <div class="input-block mb-3">
+    <label class="col-form-label" for="DesignationId">Designation <span class="text-danger">*</span></label>
+    
+      
+      <mat-select 
+        id="DesignationId"
+        class="custom-mat-select"
+        [class.invalid]="addEmployeeForm.get('DesignationId')?.invalid && addEmployeeForm.get('DesignationId')?.touched"
+        formControlName="DesignationId"
+        placeholder="Select Designation">
+        <mat-option *ngFor="let designation of designations" [value]="designation.id">
+          {{ designation.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEmployeeForm.get('DesignationId')?.invalid && addEmployeeForm.get('DesignationId')?.touched">
+        Designation is required
+      </mat-error>
+
+  </div>
+</div>
+                            </div>
+                      
+                            <div class="table-responsive m-t-15">
+                              <table class="table table-striped custom-table">
+                                <thead>
+                                  <tr>
+                                    <th>Module Permission</th>
+                                    <th class="text-center">Read</th>
+                                    <th class="text-center">Write</th>
+                                    <th class="text-center">Create</th>
+                                    <th class="text-center">Delete</th>
+                                    <th class="text-center">Import</th>
+                                    <th class="text-center">Export</th>
+                                  </tr>
+                                </thead>
+                                <tbody formArrayName="ModulePermissions">
+                                  <tr *ngFor="let permission of modulePermissions.controls; let i = index" [formGroupName]="i">
+                                    <td>{{ permission.get('moduleName')?.value }}</td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="read">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="write">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="create">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="delete">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="import" >
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                    <td class="text-center">
+                                      <label class="custom_check">
+                                        <input type="checkbox" formControlName="export" >
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>                      
+
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" (click)="toggleModal()">Cancel</button>
+                              <button type="submit" class="btn btn-primary" >{{ isEditMode ? 'Update Employee' : 'Add Employee' }}</button>
+                            </div>
+                          </form>
+      </div>
+                 
+    </div>
+
+    
+
+  </div>
+</div>
+              
+                  <!-- /Add Employee Modal -->
